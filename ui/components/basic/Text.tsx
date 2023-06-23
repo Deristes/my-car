@@ -1,7 +1,7 @@
-import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from "../../../constants/SIZES";
-import {Text} from "react-native";
-import {Link} from "expo-router";
-import {COLOR} from "../../../constants/COLORS";
+import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from '../../../constants/SIZES';
+import {Text} from 'react-native';
+import {Link} from 'expo-router';
+import {COLOR} from '../../../constants/COLORS';
 
 export default function UI_Text(
   {
@@ -29,21 +29,21 @@ export default function UI_Text(
     return <Link
       href={href}
       style={{
-        fontSize: size,
-        fontWeight: weight,
-        color: color,
-        padding: padding,
-        margin: margin,
-        textAlign: center ? "center" : right ? "right" : "left"
+        fontSize: size || FONT_SIZE.MD,
+        fontWeight: weight || FONT_WEIGHT.MD,
+        color: color || COLOR.FONT_PRIMARY,
+        padding: padding || 0,
+        margin: margin || 0,
+        textAlign: center ? 'center' : right ? 'right' : 'left'
       }}
-    >{children}</Link>
+    >{children}</Link>;
   }
   return <Text style={{
-    fontSize: size,
-    fontWeight: weight,
-    color: color,
-    padding: padding,
-    margin: margin,
-    textAlign: center ? "center" : right ? "right" : "left"
-  }}>{children}</Text>
+    fontSize: size || FONT_SIZE.MD,
+    fontWeight: weight || FONT_WEIGHT.MD,
+    color: color || COLOR.FONT_PRIMARY,
+    padding: padding || 0,
+    margin: margin || 0,
+    textAlign: center ? 'center' : right ? 'right' : 'left'
+  }}>{children}</Text>;
 }

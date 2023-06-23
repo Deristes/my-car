@@ -9,9 +9,9 @@ export enum FONT_SIZE {
 }
 
 export enum FONT_WEIGHT {
-    SM = "200",
-    MD = "400",
-    LG = "700"
+    SM = '200',
+    MD = '400',
+    LG = '700'
 }
 
 export enum BLOCK_SPACING {

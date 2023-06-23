@@ -1,20 +1,20 @@
-import {ScrollView, Text, View} from "react-native";
+import {ScrollView, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Slot} from "expo-router";
-import {COLOR} from "../../constants/COLORS";
-import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from "../../constants/SIZES";
-import UI_Text from "../../ui/components/basic/Text";
-import UI_Navbar from "../../ui/components/navbar/Navbar";
+import {Slot} from 'expo-router';
+import {COLOR} from '../../constants/COLORS';
+import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from '../../constants/SIZES';
+import UI_Text from '../../ui/components/basic/Text';
+import UI_Navbar from '../../ui/components/navbar/Navbar';
 
 export default function HomeLayout() {
   return <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BG_NAVBAR }}>
     <View style={{flex: 1}}>
       <View style={{
-        display: "flex",
-        flexDirection: "row"
+        display: 'flex',
+        flexDirection: 'row'
       }}>
         <View style={{flex: 1}}>
-          <UI_Text href={"/home/"} padding={BLOCK_SPACING.LG}>back</UI_Text>
+          <UI_Text href={'/home/'} padding={BLOCK_SPACING.LG}>back</UI_Text>
         </View>
         <View style={{flex: 1}}>
           <UI_Text
@@ -36,5 +36,5 @@ export default function HomeLayout() {
       </ScrollView>
       <UI_Navbar />
     </View>
-  </SafeAreaView>
+  </SafeAreaView>;
 }
