@@ -1,10 +1,13 @@
 import UI_Text from '../../ui/components/basic/Text';
 import {View} from 'react-native';
-import {BLOCK_SPACING, FONT_SIZE} from '../../constants/SIZES';
-import {COLOR} from '../../constants/COLORS';
+import {BLOCK_SPACING} from '../../constants/SIZES';
 import {openDatabase} from '../../utils/database/sqLite';
 import {useEffect, useState} from 'react';
-import PG_FuelInput from '../../ui/pages/fuel/input';
+import PG_FuelInput from '../../ui/pages/fuel/FuelInput';
+import UI_Modal from '../../ui/components/modal/Modal';
+import UI_Button from '../../ui/components/basic/Button';
+import UI_Card from '../../ui/components/container/Card';
+import UI_FuelArrayView from '../../ui/components/fuel/FuelArrayView';
 
 const db = openDatabase('db.db');
 
@@ -46,6 +49,8 @@ export default function fuel() {
     });
   }
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   return <>
     <View style={{
       padding: BLOCK_SPACING.LG,
@@ -53,39 +58,23 @@ export default function fuel() {
     }}>
       { error ? <UI_Text padding={BLOCK_SPACING.LG}>{error}</UI_Text> : <></>}
 
-      <PG_FuelInput db={db} refreshItems={loadData} />
+      <UI_Modal
+        open={modalVisible}
+        setOpen={setModalVisible}
+        title={'add entry'}
+      >
+        <PG_FuelInput db={db} refreshItems={() => {
+          loadData();
+          setModalVisible(false);
+        }} />
+      </UI_Modal>
+
+      <UI_Button title={'Add entry'} onPress={() => {setModalVisible(true);}} />
 
       {list ? list.map((element, index) => {
-
-        const dist = element.distance + '';
-        const consume = (element.consumption / element.distance * 100);
-        const consume_int = Math.trunc(consume);
-        const consume_str = consume_int + ',' + Math.trunc((consume - consume_int) * 100);
-        const cost = element.cost + '';
-
-        return <View style={{
-          display: 'flex',
-          flexDirection: 'row',
-          borderRadius: BLOCK_SPACING.SM,
-          backgroundColor: COLOR.BG_NAVBAR,
-          padding: BLOCK_SPACING.MD,
-          gap: BLOCK_SPACING.MD
-        }}
-        key={index}
-        >
-          <View style={{flex: 1}}>
-            <UI_Text size={FONT_SIZE.XL} center>{dist}</UI_Text>
-            <UI_Text size={FONT_SIZE.XS} center>km</UI_Text>
-          </View>
-          <View style={{flex: 1}}>
-            <UI_Text size={FONT_SIZE.XL} center>{consume_str}</UI_Text>
-            <UI_Text size={FONT_SIZE.XS} center>l/100km</UI_Text>
-          </View>
-          <View style={{flex: 1}}>
-            <UI_Text size={FONT_SIZE.XL} center>{cost}</UI_Text>
-            <UI_Text size={FONT_SIZE.XS} center>Euro</UI_Text>
-          </View>
-        </View>;
+        return <UI_Card key={index}>
+          <UI_FuelArrayView distance={element.distance} consumption={element.consumption} cost={element.cost} />
+        </UI_Card>;
       }) : <></>}
     </View>
   </>;
