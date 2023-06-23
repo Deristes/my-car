@@ -13,7 +13,8 @@ export default function UI_Text(
     margin = 0,
     center = false,
     right = false,
-    href
+    href,
+    onPress
   }: {
     children: string,
     size?: FONT_SIZE,
@@ -23,7 +24,8 @@ export default function UI_Text(
     margin?: BLOCK_SPACING | number,
     center?: boolean,
     right?: boolean,
-    href?: string
+    href?: string,
+    onPress?: () => void
   }) {
   if (href != null) {
     return <Link
@@ -44,6 +46,6 @@ export default function UI_Text(
     color: color || COLOR.FONT_PRIMARY,
     padding: padding || 0,
     margin: margin || 0,
-    textAlign: center ? 'center' : right ? 'right' : 'left'
-  }}>{children}</Text>;
+    textAlign: center ? 'center' : right ? 'right' : 'left',
+  }} onPress={onPress}>{children}</Text>;
 }

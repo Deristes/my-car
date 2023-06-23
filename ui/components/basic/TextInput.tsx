@@ -1,6 +1,7 @@
 import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from '../../../constants/SIZES';
 import {COLOR} from '../../../constants/COLORS';
-import {TextInput} from 'react-native';
+import {TextInput, View} from 'react-native';
+import UI_Text from './Text';
 
 
 export default function UI_TextInput(
@@ -13,7 +14,9 @@ export default function UI_TextInput(
     onSubmit,
     value,
     type,
-    placeholder
+    placeholder,
+    title,
+    unit
   }: {
     size?: FONT_SIZE,
     weight?: FONT_WEIGHT,
@@ -23,27 +26,44 @@ export default function UI_TextInput(
     onSubmit?: () => void,
     value: string,
     type?: 'number',
-    placeholder?: string
+    placeholder?: string,
+    title?: string,
+    unit?: string
   }) {
-  return <TextInput
-    onChangeText = { (text) => {
-      if (type === 'number') {
-        setValue(text.replace(/[^0-9]/g, ''));
-      } else {
-        setValue(text);
-      }
-    }}
-    keyboardType = {'numeric'}
-    onSubmitEditing = {onSubmit}
-    style = {{
-      fontSize: size || FONT_SIZE.MD,
-      fontWeight: weight || FONT_WEIGHT.MD,
-      color: color || COLOR.FONT_PRIMARY,
-      margin: margin || 0,
+
+  return <View style={{
+    margin: margin || 0,
+  }}>
+    {title ? <UI_Text color={COLOR.FONT_SECONDARY}>{title}</UI_Text> : <></>}
+    <View style={{
+      padding: BLOCK_SPACING.MD,
+      display: 'flex',
+      flexDirection: 'row',
       backgroundColor: COLOR.BG_NAVBAR,
-      borderRadius: BLOCK_SPACING.SM
-    }}
-    placeholder = {placeholder || ''}
-    value = {value}
-  />;
+      borderRadius: BLOCK_SPACING.MD,
+    }}>
+      <TextInput
+        onChangeText = { (text) => {
+          if (type === 'number') {
+            setValue(text.replace(/[^0-9]/g, ''));
+          } else {
+            setValue(text);
+          }
+        }}
+        keyboardType = {'numeric'}
+        onSubmitEditing = {onSubmit}
+        style = {{
+          fontSize: size || FONT_SIZE.MD,
+          fontWeight: weight || FONT_WEIGHT.MD,
+          color: color || COLOR.FONT_PRIMARY,
+          flex: 1
+        }}
+        placeholderTextColor = {COLOR.FONT_PLACEHOLDER}
+        placeholder = {placeholder || ''}
+        value = {value}
+      />
+      <UI_Text right size={FONT_SIZE.SM} padding={BLOCK_SPACING.SM}>{unit}</UI_Text>
+    </View>
+  </View>;
 }
+
