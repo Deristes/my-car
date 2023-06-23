@@ -14,6 +14,7 @@ const db = openDatabase('db.db');
 export default function fuel() {
   const [list, setItems] = useState(null);
   const [error, setError] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -49,8 +50,6 @@ export default function fuel() {
     });
   }
 
-  const [modalVisible, setModalVisible] = useState(false);
-
   return <>
     <View style={{
       padding: BLOCK_SPACING.LG,
@@ -61,7 +60,7 @@ export default function fuel() {
       <UI_Modal
         open={modalVisible}
         setOpen={setModalVisible}
-        title={'add entry'}
+        title={'Neuer eintrag'}
       >
         <PG_FuelInput db={db} refreshItems={() => {
           loadData();
@@ -69,7 +68,7 @@ export default function fuel() {
         }} />
       </UI_Modal>
 
-      <UI_Button title={'Add entry'} onPress={() => {setModalVisible(true);}} />
+      <UI_Button title={'Neuer eintrag'} onPress={() => {setModalVisible(true);}} />
 
       {list ? list.map((element, index) => {
         return <UI_Card key={index}>

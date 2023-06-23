@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import { type WebSQLDatabase } from 'expo-sqlite';
+import {useEffect, useState} from 'react';
+import {type WebSQLDatabase} from 'expo-sqlite';
 import {View} from 'react-native';
 import UI_TextInput from '../../components/basic/TextInput';
 import {BLOCK_SPACING} from '../../../constants/SIZES';
@@ -40,9 +40,11 @@ export default function PG_FuelInput({db, refreshItems}: {db: WebSQLDatabase, re
     <UI_ModalPagerPage controls={<>
       <UI_Button disabled={!(distance && consumption && cost && db !== null)} title={'Überprüfen'} onPress={() => {setPage(1);}} />
     </>}>
-      <UI_TextInput title={'Distanz'} unit={'km'} setValue={setDistance} value={distance} placeholder={'Distanz'}/>
-      <UI_TextInput title={'Verbrauch'} unit={'l'} setValue={setConsumption} value={consumption} placeholder={'Verbrauch'}/>
-      <UI_TextInput title={'Kosten'} unit={'€'} setValue={setCost} value={cost} placeholder={'Kosten'}/>
+      <View style={{gap: BLOCK_SPACING.MD}}>
+        <UI_TextInput title={'Distanz'} unit={'km'} setValue={setDistance} value={distance} placeholder={'Distanz'}/>
+        <UI_TextInput title={'Verbrauch'} unit={'l'} setValue={setConsumption} value={consumption} placeholder={'Verbrauch'}/>
+        <UI_TextInput title={'Kosten'} unit={'€'} setValue={setCost} value={cost} placeholder={'Kosten'}/>
+      </View>
     </UI_ModalPagerPage>
 
     {/* Page 2 */}
@@ -52,9 +54,11 @@ export default function PG_FuelInput({db, refreshItems}: {db: WebSQLDatabase, re
         <UI_Button disabled={!(distance && consumption && cost && db !== null)} title={'Speichern'} onPress={add} />
       </View>}
     >
-      <UI_Card>
-        <UI_FuelArrayView distance={parseFloat(distance)} consumption={parseFloat(consumption)} cost={parseFloat(cost)} />
-      </UI_Card>
+      <View style={{gap: BLOCK_SPACING.MD}}>
+        <UI_Card>
+          <UI_FuelArrayView distance={parseFloat(distance)} consumption={parseFloat(consumption)} cost={parseFloat(cost)} />
+        </UI_Card>
+      </View>
     </UI_ModalPagerPage>
   </UI_Pager>;
 }
