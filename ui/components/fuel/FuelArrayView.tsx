@@ -1,7 +1,10 @@
 import UI_Row from '../container/Row';
 import {View} from 'react-native';
 import UI_Text from '../basic/Text';
-import {FONT_SIZE} from '../../../constants/SIZES';
+import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
+import Accordion from '../basic/Accordion';
+import {useState} from 'react';
+import {toDecimals} from "../../../utils/foramt/formatNumbers";
 
 
 export default function UI_FuelArrayView({
@@ -13,6 +16,8 @@ export default function UI_FuelArrayView({
   consumption: number,
   cost: number
 }) {
+  
+  const [open, setOpen] = useState<boolean>(false);
 
   const outDistance = isNaN(distance) ? '-' : distance + '';
   const consumptionPerDistance = (consumption / distance * 100);
@@ -22,19 +27,42 @@ export default function UI_FuelArrayView({
   );
   const outCost = isNaN(cost) ? '-' : cost + '';
 
-  return <UI_Row>
-    <View style={{flex: 1}}>
-      <UI_Text size={FONT_SIZE.XL} center>{outDistance}</UI_Text>
-      <UI_Text size={FONT_SIZE.XS} center>km</UI_Text>
+  return <Accordion 
+    open={open}
+    setOpen={setOpen}
+    activeOpacity={1}
+    title={
+      <UI_Row>
+        <View style={{flex: 1}}>
+          <UI_Text size={FONT_SIZE.XL} center>{toDecimals(distance)}</UI_Text>
+          <UI_Text size={FONT_SIZE.XS} center>km</UI_Text>
+        </View>
+        <View style={{flex: 1}}>
+          <UI_Text size={FONT_SIZE.XL} center>{toDecimals(consumption / distance * 100)}</UI_Text>
+          <UI_Text size={FONT_SIZE.XS} center>l / 100km</UI_Text>
+        </View>
+        <View style={{flex: 1}}>
+          <UI_Text size={FONT_SIZE.XL} center>{toDecimals(cost)}</UI_Text>
+          <UI_Text size={FONT_SIZE.XS} center>Euro</UI_Text>
+        </View>
+      </UI_Row>
+    } >
+    <View style={{paddingTop: BLOCK_SPACING.LG}}>
+      <UI_Row>
+        <View style={{flex: 1}}>
+          <UI_Text size={FONT_SIZE.XL} center>{toDecimals(cost/ consumption)}</UI_Text>
+          <UI_Text size={FONT_SIZE.XS} center>€ / l</UI_Text>
+        </View>
+        <View style={{flex: 1}}>
+          <UI_Text size={FONT_SIZE.XL} center>{toDecimals(consumption)}</UI_Text>
+          <UI_Text size={FONT_SIZE.XS} center>Liter</UI_Text>
+        </View>
+        <View style={{flex: 1}}>
+          <UI_Text size={FONT_SIZE.XL} center>{toDecimals(cost / distance * 100)}</UI_Text>
+          <UI_Text size={FONT_SIZE.XS} center>€ / 100km</UI_Text>
+        </View>
+      </UI_Row>
     </View>
-    <View style={{flex: 1}}>
-      <UI_Text size={FONT_SIZE.XL} center>{outConsumptionPerDistance}</UI_Text>
-      <UI_Text size={FONT_SIZE.XS} center>l/100km</UI_Text>
-    </View>
-    <View style={{flex: 1}}>
-      <UI_Text size={FONT_SIZE.XL} center>{outCost}</UI_Text>
-      <UI_Text size={FONT_SIZE.XS} center>Euro</UI_Text>
-    </View>
-  </UI_Row>;
+  </Accordion>;
 
 }
