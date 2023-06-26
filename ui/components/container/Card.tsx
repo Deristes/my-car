@@ -6,7 +6,7 @@ import {COLOR} from '../../../constants/COLORS';
 export default function UI_Card({
   children
 }:{
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
 }) {
   return <View style={{
     borderRadius: BLOCK_SPACING.SM,

@@ -25,7 +25,7 @@ export default function PG_FuelInput({db, refreshItems}: {db: WebSQLDatabase, re
     db.transaction(
       (tx) => {
         tx.executeSql(
-          'insert into fuelConsumption (distance, consumption, cost) values (?, ?, ?);',
+          'insert into fuelConsumption (distance, consumption, cost, date) values (?, ?, ?, datetime(\'now\', \'localtime\'));',
           [tempDistance, tempConsumption, tempCost]);
         refreshItems();
       }
