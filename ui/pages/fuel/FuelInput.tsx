@@ -56,7 +56,7 @@ export default function PG_FuelInput({db, refreshItems}: {db: WebSQLDatabase, re
     >
       <View style={{gap: BLOCK_SPACING.MD}}>
         <UI_Card>
-          <UI_FuelArrayView distance={parseFloat(distance)} consumption={parseFloat(consumption)} cost={parseFloat(cost)} />
+          <UI_FuelArrayView distance={parseFloat(distance)} consumption={parseFloat(consumption)} cost={parseFloat(cost)} open={true} />
         </UI_Card>
       </View>
     </UI_ModalPagerPage>

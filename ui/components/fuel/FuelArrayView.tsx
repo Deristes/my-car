@@ -4,31 +4,25 @@ import UI_Text from '../basic/Text';
 import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
 import Accordion from '../basic/Accordion';
 import {useState} from 'react';
-import {toDecimals} from "../../../utils/foramt/formatNumbers";
+import {toDecimals} from '../../../utils/foramt/formatNumbers';
 
 
 export default function UI_FuelArrayView({
   distance,
   consumption,
-  cost
+  cost,
+  open
 }: {
   distance: number,
   consumption: number,
-  cost: number
+  cost: number,
+  open?: boolean
 }) {
   
-  const [open, setOpen] = useState<boolean>(false);
-
-  const outDistance = isNaN(distance) ? '-' : distance + '';
-  const consumptionPerDistance = (consumption / distance * 100);
-  const consumptionPerDistanceInt = Math.trunc(consumptionPerDistance);
-  const outConsumptionPerDistance = (isNaN(consumptionPerDistance) ? '-' :
-    consumptionPerDistanceInt + ',' + Math.trunc((consumptionPerDistance - consumptionPerDistanceInt) * 100)
-  );
-  const outCost = isNaN(cost) ? '-' : cost + '';
+  const [isOpen, setOpen] = useState<boolean>(false);
 
   return <Accordion 
-    open={open}
+    open={(open != null && open) || (open == null && isOpen)}
     setOpen={setOpen}
     activeOpacity={1}
     title={

@@ -2,7 +2,8 @@ import UI_Text from '../../components/basic/Text';
 import {COLOR} from '../../../constants/COLORS';
 import UI_FuelArrayView from '../../components/fuel/FuelArrayView';
 import UI_Card from '../../components/container/Card';
-import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
+import {FONT_SIZE} from '../../../constants/SIZES';
+import {View} from 'react-native';
 
 export interface fuelListEntry {
   distance: number,
@@ -15,7 +16,7 @@ export default function PG_FuelList({list}: {list: fuelListEntry[]}): JSX.Elemen
   let lastDate:Date | null = null;
 
   return <>{list.map((element, index) => {
-    let d = <></>;
+    let d = <View key={`date_${index}`}></View>;
     const newDate = new Date(element.date);
     if (lastDate === null || lastDate.getMonth() !== newDate.getMonth()) {
       d = <UI_Text key={`date_${index}`}>{newDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</UI_Text>;
