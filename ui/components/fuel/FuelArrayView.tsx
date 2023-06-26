@@ -6,7 +6,6 @@ import Accordion from '../basic/Accordion';
 import {useState} from 'react';
 import {toDecimals} from '../../../utils/foramt/formatNumbers';
 
-
 export default function UI_FuelArrayView({
   distance,
   consumption,

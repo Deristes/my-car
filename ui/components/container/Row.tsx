@@ -1,7 +1,6 @@
 import {BLOCK_SPACING} from '../../../constants/SIZES';
 import {View} from 'react-native';
 
-
 export default function UI_Row({
   children
 }:{

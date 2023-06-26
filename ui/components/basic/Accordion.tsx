@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import {LayoutAnimation, TouchableOpacity, View, StyleSheet} from 'react-native';
-import {BLOCK_SPACING} from "../../../constants/SIZES";
 
 export default function Accordion ({
   title,

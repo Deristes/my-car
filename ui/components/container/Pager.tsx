@@ -1,7 +1,6 @@
 import {View, Animated} from 'react-native';
 import {useEffect, useRef, useState} from 'react';
 
-
 export default function UI_Pager({
   children,
   page

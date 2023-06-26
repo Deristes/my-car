@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {type WebSQLDatabase} from 'expo-sqlite';
 import {View} from 'react-native';
 import UI_TextInput from '../../components/basic/TextInput';

@@ -3,7 +3,6 @@ import {COLOR} from '../../../constants/COLORS';
 import {TextInput, View} from 'react-native';
 import UI_Text from './Text';
 
-
 export default function UI_TextInput(
   {
     size = FONT_SIZE.MD,

@@ -1,7 +1,6 @@
 import {BLOCK_SPACING} from '../../../constants/SIZES';
 import {ScrollView, View} from 'react-native';
 
-
 export default function UI_ModalPagerPage({
   children,
   controls

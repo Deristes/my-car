@@ -1,8 +1,7 @@
 import {TouchableOpacity} from 'react-native';
 import {COLOR} from '../../../constants/COLORS';
 import UI_Text from './Text';
-import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from "../../../constants/SIZES";
-
+import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from '../../../constants/SIZES';
 
 export default function UI_Button({
   title,

@@ -17,13 +17,13 @@ export default function UI_Navbar() {
       <TouchableOpacity style={{flex: 1, padding: BLOCK_SPACING.LG, justifyContent: 'center', alignItems: 'center'}}>
         <UI_Text center>Wartung</UI_Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {router.push('/home/');}}style={{flex: 1, padding: BLOCK_SPACING.LG, justifyContent: 'center', alignItems: 'center'}}>
+      <TouchableOpacity onPress={() => {router.push('/home/');}} style={{flex: 1, padding: BLOCK_SPACING.LG, justifyContent: 'center', alignItems: 'center'}}>
         <View style={{position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', opacity: segments.includes('home') ? 1 : 0}}>
           <View style={{width: FONT_SIZE.XL + 10, height: FONT_SIZE.XL + 10, backgroundColor: COLOR.BTN_COLOR, borderRadius: FONT_SIZE.XL}}></View>
         </View>
         <MaterialIcons name="home" size={FONT_SIZE.XL} color={COLOR.FONT_PRIMARY} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {router.push('/fuel/');}}style={{flex: 1, padding: BLOCK_SPACING.LG, justifyContent: 'center', alignItems: 'center'}}>
+      <TouchableOpacity onPress={() => {router.push('/fuel/');}} style={{flex: 1, padding: BLOCK_SPACING.LG, justifyContent: 'center', alignItems: 'center'}}>
         <View style={{position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', opacity: segments.includes('fuel') ? 1 : 0}}>
           <View style={{width: FONT_SIZE.XL + 10, height: FONT_SIZE.XL + 10, backgroundColor: COLOR.BTN_COLOR, borderRadius: FONT_SIZE.XL}}></View>
         </View>

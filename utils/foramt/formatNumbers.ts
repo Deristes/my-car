@@ -1,4 +1,3 @@
-
 export function toDecimals(number: number, decimals = 2):string {
   if (isNaN(number)) {
     return '-';

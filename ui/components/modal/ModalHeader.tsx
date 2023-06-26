@@ -4,8 +4,6 @@ import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from '../../../constants/SIZES';
 import {COLOR} from '../../../constants/COLORS';
 import { AntDesign } from '@expo/vector-icons';
 
-
-
 export default function UI_ModalHeader({
   close,
   title

@@ -6,8 +6,6 @@ import {useEffect, useState} from 'react';
 import PG_FuelInput from '../../ui/pages/fuel/FuelInput';
 import UI_Modal from '../../ui/components/modal/Modal';
 import UI_Button from '../../ui/components/basic/Button';
-import UI_Card from '../../ui/components/container/Card';
-import UI_FuelArrayView from '../../ui/components/fuel/FuelArrayView';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {COLOR} from '../../constants/COLORS';
 import PG_FuelList, {fuelListEntry} from '../../ui/pages/fuel/FuelList';

@@ -2,7 +2,6 @@ import {View} from 'react-native';
 import {BLOCK_SPACING} from '../../../constants/SIZES';
 import {COLOR} from '../../../constants/COLORS';
 
-
 export default function UI_Card({
   children
 }:{
