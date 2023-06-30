@@ -1,7 +1,6 @@
 import UI_Text from '../../ui/components/basic/Text';
 import {TouchableOpacity, View} from 'react-native';
 import {BLOCK_SPACING} from '../../constants/SIZES';
-import {openDatabase} from '../../utils/database/sqLite';
 import {useEffect, useState} from 'react';
 import PG_FuelInput from '../../ui/pages/fuel/FuelInput';
 import UI_Modal from '../../ui/components/modal/Modal';
@@ -9,46 +8,37 @@ import UI_Button from '../../ui/components/basic/Button';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {COLOR} from '../../constants/COLORS';
 import PG_FuelList, {fuelListEntry} from '../../ui/pages/fuel/FuelList';
+import {useDb} from '../_layout';
 
-const db = openDatabase('db.db');
 
 export default function fuel() {
   const [list, setItems] = useState<fuelListEntry[]>(null);
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const db = useDb();
+
   useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS \'fuelConsumption\' (id INTEGER PRIMARY KEY AUTOINCREMENT, distance REAL, consumption REAL, cost REAL, date DATE)',
-        null,
-        null,
-        (txObj, error) => {
-          setError('An error occurred while instantiating database');
-          console.warn(error);
-          return false;
-        }
-      );
+    if (db == null) {
+      return;
+    }
+    loadData(25).then();
+  }, [db]);
 
-    });
-    loadData(25);
-  }, []);
+  async function loadData(limit) {
 
-  function loadData(limit) {
-    db.transaction((tx) => {
-      tx.executeSql(
+    try {
+      const items: unknown = await db.executeQuery(
         'select distance, consumption, cost, date from fuelConsumption ORDER BY date DESC LIMIT ?;',
-        [limit],
-        (a, {rows: {_array}}) => {
-          setItems(_array);
-        },
-        (txObj, error) => {
-          setError('An error occurred while reading data from the database');
-          console.warn(error);
-          return false;
-        }
+        [limit]
       );
-    });
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setItems(items);
+    } catch (e) {
+      console.warn('DATA COULD NOT BE FETCHED')
+    }
   }
 
   return <>
@@ -63,7 +53,7 @@ export default function fuel() {
         setOpen={setModalVisible}
         title={'Neuer eintrag'}
       >
-        <PG_FuelInput db={db} refreshItems={() => {
+        <PG_FuelInput refreshItems={() => {
           loadData(25);
           setModalVisible(false);
         }} />
