@@ -8,12 +8,15 @@ import UI_Card from '../../components/container/Card';
 import UI_FuelArrayView from '../../components/fuel/FuelArrayView';
 import UI_Pager from '../../components/container/Pager';
 import UI_ModalPagerPage from '../../components/modal/ModalPagerPage';
+import {useDb} from '../../../app/_layout';
 
-export default function PG_FuelInput({db, refreshItems}: {db: WebSQLDatabase, refreshItems: () => void}) {
+export default function PG_FuelInput({refreshItems}: {refreshItems: () => void}) {
   const [distance, setDistance] = useState<string>('');
   const [consumption, setConsumption] = useState<string>('');
   const [cost, setCost] = useState<string>('');
   const [page, setPage] = useState<number>(0);
+
+  const db = useDb();
 
   function add() {
     if (!(distance && consumption && cost && db !== null)) {
@@ -22,17 +25,16 @@ export default function PG_FuelInput({db, refreshItems}: {db: WebSQLDatabase, re
     const tempDistance = distance;
     const tempConsumption = consumption;
     const tempCost = cost;
-    db.transaction(
-      (tx) => {
-        tx.executeSql(
-          'insert into fuelConsumption (distance, consumption, cost, date) values (?, ?, ?, datetime(\'now\', \'localtime\'));',
-          [tempDistance, tempConsumption, tempCost]);
-        refreshItems();
-      }
-    );
-    setDistance('');
-    setConsumption('');
-    setCost('');
+
+    db.executeQuery(
+      'insert into fuelConsumption (distance, consumption, cost, date) values (?, ?, ?, datetime(\'now\', \'localtime\'));',
+      [tempDistance, tempConsumption, tempCost]
+    ).then(() => {
+      refreshItems();
+      setDistance('');
+      setConsumption('');
+      setCost('');
+    });
   }
 
   return <UI_Pager page={page}>
