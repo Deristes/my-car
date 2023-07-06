@@ -43,12 +43,10 @@ export default class dbConnector {
 
     // Get version if exists
     const version = (await this.executeQuery('SELECT migration from migrations'));
-    console.log(version);
+
     // if version row does not exist create it
     if (version == null || version[0] == null) {
-      console.log('a');
       await this.executeQuery('INSERT INTO \'migrations\' (migration) VALUES (0)');
-      console.log('b');
       return 0;
     }
 

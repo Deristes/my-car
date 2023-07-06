@@ -1,10 +1,21 @@
 import {View} from 'react-native';
-import {Link} from 'expo-router';
-import {COLOR} from '../../constants/COLORS';
 import UI_Text from '../../ui/components/basic/Text';
 import {BLOCK_SPACING} from '../../constants/SIZES';
+import {useEffect, useState} from 'react';
+import {useDb} from '../_layout';
 
 export default function home() {
+  const db = useDb();
+  const [dbVersion, setDbVersion] = useState<number>(null);
+  useEffect(() => {
+    if (db == null) {
+      return;
+    }
+    db.executeQuery('SELECT migration from migrations').then((res) => {
+      setDbVersion(res[0].migration as number);
+      return;
+    });
+  }, [db]);
   return <>
     <View style={{padding: 10}}>
       <UI_Text padding={BLOCK_SPACING.MD}>This is the home page</UI_Text>
@@ -15,7 +26,7 @@ export default function home() {
                 Nisi enim rerum dolores ad magnam doloremque reprehenderit. Nam provident id harum ipsum qui. Vitae molestiae optio dolor.
                 Quia quam qui quo. Accusantium voluptatem omnis culpa at magni quis. Quidem rerum temporibus non quae. Accusamus et impedit et debitis adipisci omnis modi voluptatum. Deleniti sequi aut quisquam provident illo dolorem.
       </UI_Text>
-      <Link style={{color: COLOR.FONT_PRIMARY}} href="/">Start</Link>
+      <UI_Text right>{`DB Version: ${dbVersion}`}</UI_Text>
     </View>
   </>;
 }

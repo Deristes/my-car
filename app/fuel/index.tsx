@@ -1,4 +1,3 @@
-import UI_Text from '../../ui/components/basic/Text';
 import {TouchableOpacity, View} from 'react-native';
 import {BLOCK_SPACING} from '../../constants/SIZES';
 import {useEffect, useState} from 'react';
@@ -13,7 +12,6 @@ import {useDb} from '../_layout';
 
 export default function fuel() {
   const [list, setItems] = useState<fuelListEntry[]>(null);
-  const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   const db = useDb();
@@ -33,11 +31,9 @@ export default function fuel() {
         [limit]
       );
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      setItems(items);
+      setItems(items as fuelListEntry[]);
     } catch (e) {
-      console.warn('DATA COULD NOT BE FETCHED')
+      console.warn('DATA COULD NOT BE FETCHED');
     }
   }
 
@@ -46,8 +42,6 @@ export default function fuel() {
       padding: BLOCK_SPACING.LG,
       gap: BLOCK_SPACING.MD
     }}>
-      { error ? <UI_Text padding={BLOCK_SPACING.LG}>{error}</UI_Text> : <></>}
-
       <UI_Modal
         open={modalVisible}
         setOpen={setModalVisible}
