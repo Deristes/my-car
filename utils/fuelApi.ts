@@ -46,7 +46,7 @@ export async function getNearestGasStations(lat: number, lng: number): Promise<G
   const _lat = Math.trunc(lat * 1000)/1000;
   const _lng = Math.trunc(lng * 1000)/1000;
 
-  const url = `https://creativecommons.tankerkoenig.de/json/list.php?lat=${_lat}&lng=${_lng}&rad=10&sort=dist&type=all&apikey=5bc9b339-e92d-6182-581b-d088287a449c`;
+  const url = `https://creativecommons.tankerkoenig.de/json/list.php?lat=${_lat}&lng=${_lng}&rad=2&sort=dist&type=all&apikey=5bc9b339-e92d-6182-581b-d088287a449c`;
 
   try {
     const res = await fetch(url);
@@ -62,6 +62,21 @@ export async function getNearestGasStations(lat: number, lng: number): Promise<G
   } catch (e) {
     return [];
   }
+}
+
+export function streamlineName(g: GasStation): string {
+  if (! g.name.toLowerCase().includes(g.brand.toLowerCase())) {
+    return `${g.brand} - ${g.name}`;
+  }
+  const spliced = g.name.split( new RegExp(g.brand.toLowerCase(), 'i'), 2);
+  if (spliced.length > 1 && spliced[0] == '' ) {
+    let str = spliced[1];
+    while (str[0] == ' ' || str[0] == '-') {
+      str = str.slice(1);
+    }
+    return `${g.brand} - ${str}`;
+  }
+  return `${g.brand} - ${g.name}`;
 }
 
 export async function getNearestGasStation(lat: number, lng: number): Promise<GasStation | null> {

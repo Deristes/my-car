@@ -12,7 +12,7 @@ import { Image } from 'expo-image';
 
 import * as Location from 'expo-location';
 import UI_Text from '../../components/basic/Text';
-import {type GasStation, getImagePath, getNearestGasStations} from '../../../utils/fuelApi';
+import {type GasStation, getImagePath, getNearestGasStations, streamlineName} from '../../../utils/fuelApi';
 import UI_Select, {UI_I_SelectItem} from '../../components/basic/Select/Select';
 
 function gasStationSelectList(stations: GasStation[]): UI_I_SelectItem[] {
@@ -36,7 +36,7 @@ function gasStationSelectList(stations: GasStation[]): UI_I_SelectItem[] {
           />
         </View>
         <View style={{flex:6}}>
-          <UI_Text>{e.name}</UI_Text>
+          <UI_Text>{streamlineName(e)}</UI_Text>
           <UI_Text size={FONT_SIZE.SM}>{`${e.street} ${e.houseNumber} - ${e.postCode} ${e.place}`}</UI_Text>
         </View>
       </View>
