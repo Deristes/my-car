@@ -12,12 +12,12 @@ import { Image } from 'expo-image';
 
 import * as Location from 'expo-location';
 import UI_Text from '../../components/basic/Text';
-import {type GasStation, getImagePath, getNearestGasStations, streamlineName} from '../../../utils/fuelApi';
+import {getNearestGasStations} from '../../../utils/fuelApi/fuelApi';
 import UI_Select, {UI_I_SelectItem} from '../../components/basic/Select/Select';
+import GasStationClass from '../../../utils/fuelApi/gasStation.class';
 
-function gasStationSelectList(stations: GasStation[]): UI_I_SelectItem[] {
+function gasStationSelectList(stations: GasStationClass[]): UI_I_SelectItem[] {
   return stations.map((e) => {
-    const path = getImagePath(e);
     return {
       value: e.id,
       label: e.name,
@@ -27,7 +27,7 @@ function gasStationSelectList(stations: GasStation[]): UI_I_SelectItem[] {
       }}>
         <View style={{flex:1}}>
           <Image
-            source={getImagePath(e)}
+            source={e.getImage()}
             contentFit="contain"
             transition={200}
             style={{
@@ -36,8 +36,8 @@ function gasStationSelectList(stations: GasStation[]): UI_I_SelectItem[] {
           />
         </View>
         <View style={{flex:6}}>
-          <UI_Text>{streamlineName(e)}</UI_Text>
-          <UI_Text size={FONT_SIZE.SM}>{`${e.street} ${e.houseNumber} - ${e.postCode} ${e.place}`}</UI_Text>
+          <UI_Text>{e.getStreamlinedName()}</UI_Text>
+          <UI_Text size={FONT_SIZE.SM}>{e.getAdress()}</UI_Text>
         </View>
       </View>
     };
@@ -52,7 +52,7 @@ export default function PG_FuelInput({refreshItems}: {refreshItems: () => void})
 
   const db = useDb();
 
-  const [nearestStations, setNearestStations] = useState<GasStation[]>([]);
+  const [nearestStations, setNearestStations] = useState<GasStationClass[]>([]);
   const [selectedStation, setSelectedStation] = useState<number | string | null>(null);
 
   useEffect(() => {

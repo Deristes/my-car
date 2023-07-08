@@ -1,15 +1,16 @@
-import {useEffect, useState} from "react";
-import {GasStation, getAddress, getImagePath, getNearestGasStation, streamlineName} from "../../../utils/fuelApi";
-import * as Location from "expo-location";
-import {View} from "react-native";
-import UI_Card from "../container/Card";
-import UI_Text from "../basic/Text";
-import {BLOCK_SPACING, FONT_SIZE} from "../../../constants/SIZES";
-import {Image} from "expo-image";
+import {useEffect, useState} from 'react';
+import {getNearestGasStation} from '../../../utils/fuelApi/fuelApi';
+import * as Location from 'expo-location';
+import {View} from 'react-native';
+import UI_Card from '../container/Card';
+import UI_Text from '../basic/Text';
+import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
+import {Image} from 'expo-image';
+import GasStationClass from '../../../utils/fuelApi/gasStation.class';
 
 
 export default function UI_NearestStation() {
-  const [station, setStation] = useState<GasStation | null>(null);
+  const [station, setStation] = useState<GasStationClass | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -43,7 +44,7 @@ export default function UI_NearestStation() {
       }}>
         <View style={{flex:1}}>
           <Image
-            source={getImagePath(station)}
+            source={station.getImage()}
             contentFit="contain"
             transition={200}
             style={{
@@ -52,8 +53,8 @@ export default function UI_NearestStation() {
           />
         </View>
         <View style={{flex:6}}>
-          <UI_Text>{streamlineName(station)}</UI_Text>
-          <UI_Text size={FONT_SIZE.SM}>{getAddress(station)}</UI_Text>
+          <UI_Text>{station.getStreamlinedName()}</UI_Text>
+          <UI_Text size={FONT_SIZE.SM}>{station.getAdress()}</UI_Text>
         </View>
       </View>
     </View>

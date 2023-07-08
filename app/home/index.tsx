@@ -3,7 +3,7 @@ import UI_Text from '../../ui/components/basic/Text';
 import {BLOCK_SPACING} from '../../constants/SIZES';
 import {useEffect, useState} from 'react';
 import {useDb} from '../_layout';
-import UI_NearestStation from "../../ui/components/fuel/NearestStation";
+import UI_NearestStation from '../../ui/components/fuel/NearestStation';
 
 export default function home() {
   const db = useDb();
