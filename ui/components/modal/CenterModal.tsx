@@ -1,4 +1,4 @@
-import {Modal, View} from 'react-native';
+import {Modal, Touchable, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import {COLOR} from '../../../constants/COLORS';
 import {BLOCK_SPACING} from '../../../constants/SIZES';
 import UI_ModalHeader from './ModalHeader';
@@ -22,25 +22,37 @@ export default function UI_CenterModal ({
     onDismiss={() => setOpen(false)}
     onRequestClose={() => setOpen(false)}
   >
-    <View style={{
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
-      padding: BLOCK_SPACING.MD,
-      flexDirection: 'row'
-    }}>
-      <View style={{
-        overflow: 'hidden',
-        borderRadius: BLOCK_SPACING.MD,
-        backgroundColor: COLOR.BG_PAGE,
+    <TouchableWithoutFeedback
+      onPress={() => setOpen(false)}
+      style={{
         flex: 1,
-        borderColor: COLOR.BTN_COLOR,
-        borderStyle: 'solid',
-        borderWidth: 1,
-      }}>
-        <UI_ModalHeader small close={() => setOpen(false)} title={title}></UI_ModalHeader>
-        {children}
+      }}
+    >
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          padding: BLOCK_SPACING.MD,
+          flexDirection: 'row'
+        }}>
+        <TouchableWithoutFeedback>
+          <View style={{
+            overflow: 'hidden',
+            borderRadius: BLOCK_SPACING.MD,
+            backgroundColor: COLOR.BG_PAGE,
+            flex: 1,
+            borderColor: COLOR.BTN_COLOR,
+            borderStyle: 'solid',
+            borderWidth: 1,
+          }}>
+            <UI_ModalHeader small close={() => setOpen(false)} title={title}></UI_ModalHeader>
+            {children}
+          </View>
+        </TouchableWithoutFeedback>
+
       </View>
-    </View>
+    </TouchableWithoutFeedback>
+
   </Modal>;
 }
