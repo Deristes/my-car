@@ -42,11 +42,11 @@ export interface GasStation {
   street: string
 }
 
-export async function getNearestGasStations(lat: number, lng: number): Promise<GasStation[]> {
+export async function getNearestGasStations(lat: number, lng: number, dist = 2): Promise<GasStation[]> {
   const _lat = Math.trunc(lat * 1000)/1000;
   const _lng = Math.trunc(lng * 1000)/1000;
 
-  const url = `https://creativecommons.tankerkoenig.de/json/list.php?lat=${_lat}&lng=${_lng}&rad=2&sort=dist&type=all&apikey=5bc9b339-e92d-6182-581b-d088287a449c`;
+  const url = `https://creativecommons.tankerkoenig.de/json/list.php?lat=${_lat}&lng=${_lng}&rad=${dist}&sort=dist&type=all&apikey=5bc9b339-e92d-6182-581b-d088287a449c`;
 
   try {
     const res = await fetch(url);
@@ -79,8 +79,8 @@ export function streamlineName(g: GasStation): string {
   return `${g.brand} - ${g.name}`;
 }
 
-export async function getNearestGasStation(lat: number, lng: number): Promise<GasStation | null> {
-  const stations = await getNearestGasStations(lat, lng);
+export async function getNearestGasStation(lat: number, lng: number, dist = 2): Promise<GasStation | null> {
+  const stations = await getNearestGasStations(lat, lng, dist);
   if (stations.length == 0) {
     return null;
   }
@@ -105,4 +105,8 @@ export function getImagePath(g: GasStation) {
     return logo.image;
   }
   return require('../assets/image/fuelStations/brands/default.png');
+}
+
+export function getAddress(g: GasStation) {
+  return `${g.street} ${g.houseNumber} - ${g.postCode} ${g.place}`;
 }

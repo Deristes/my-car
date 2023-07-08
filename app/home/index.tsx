@@ -3,6 +3,7 @@ import UI_Text from '../../ui/components/basic/Text';
 import {BLOCK_SPACING} from '../../constants/SIZES';
 import {useEffect, useState} from 'react';
 import {useDb} from '../_layout';
+import UI_NearestStation from "../../ui/components/fuel/NearestStation";
 
 export default function home() {
   const db = useDb();
@@ -16,7 +17,8 @@ export default function home() {
       return;
     });
   }, [db]);
-  return <>
+  return <View style={{padding: BLOCK_SPACING.MD}}>
+    <UI_NearestStation />
     <View style={{padding: 10}}>
       <UI_Text padding={BLOCK_SPACING.MD}>This is the home page</UI_Text>
       <UI_Text>
@@ -28,5 +30,5 @@ export default function home() {
       </UI_Text>
       <UI_Text right>{`DB Version: ${dbVersion}`}</UI_Text>
     </View>
-  </>;
+  </View>;
 }
