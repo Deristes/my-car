@@ -15,6 +15,7 @@ import UI_Text from '../../components/basic/Text';
 import {getNearestGasStations} from '../../../utils/fuelApi/fuelApi';
 import UI_Select, {UI_I_SelectItem} from '../../components/basic/Select/Select';
 import GasStationClass from '../../../utils/fuelApi/gasStation.class';
+import {saveFuelEntry} from '../../../utils/fuelApi/fuelDbStorage';
 
 function gasStationSelectList(stations: GasStationClass[]): UI_I_SelectItem[] {
   return stations.map((e) => {
@@ -76,13 +77,12 @@ export default function PG_FuelInput({refreshItems}: {refreshItems: () => void})
     if (!(distance && consumption && cost && db !== null)) {
       return;
     }
-    const tempDistance = distance;
-    const tempConsumption = consumption;
-    const tempCost = cost;
-
-    db.executeQuery(
-      'insert into fuelConsumption (distance, consumption, cost, date) values (?, ?, ?, datetime(\'now\', \'localtime\'));',
-      [tempDistance, tempConsumption, tempCost]
+    saveFuelEntry(
+      db,
+      parseFloat(distance),
+      parseFloat(consumption),
+      parseFloat(cost),
+      nearestStations.find((e) => e.id === selectedStation)
     ).then(() => {
       refreshItems();
       setDistance('');
