@@ -5,17 +5,21 @@ import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
 import Accordion from '../basic/Accordion';
 import {useState} from 'react';
 import {toDecimals} from '../../../utils/foramt/formatNumbers';
+import GasStationClass from "../../../utils/fuelApi/gasStation.class";
+import {Image} from "expo-image";
 
 export default function UI_FuelArrayView({
   distance,
   consumption,
   cost,
-  open
+  open,
+  station
 }: {
   distance: number,
   consumption: number,
   cost: number,
-  open?: boolean
+  open?: boolean,
+  station?: GasStationClass
 }) {
   
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -56,6 +60,29 @@ export default function UI_FuelArrayView({
         </View>
       </UI_Row>
     </View>
+    {station == null ? <></> :
+      <View style={{
+        flexDirection: 'row',
+        gap: BLOCK_SPACING.MD,
+        padding: BLOCK_SPACING.MD,
+        paddingTop: BLOCK_SPACING.LG
+      }}>
+        <View style={{flex:1}}>
+          <Image
+            source={station.getImage()}
+            contentFit="contain"
+            transition={200}
+            style={{
+              flex: 1
+            }}
+          />
+        </View>
+        <View style={{flex:6}}>
+          <UI_Text>{station.getStreamlinedName()}</UI_Text>
+          <UI_Text size={FONT_SIZE.SM}>{station.getAdress()}</UI_Text>
+        </View>
+      </View>
+    }
   </Accordion>;
 
 }

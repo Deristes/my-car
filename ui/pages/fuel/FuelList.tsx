@@ -4,13 +4,7 @@ import UI_FuelArrayView from '../../components/fuel/FuelArrayView';
 import UI_Card from '../../components/container/Card';
 import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
 import {View} from 'react-native';
-
-export interface fuelListEntry {
-  distance: number,
-  consumption: number,
-  cost: number,
-  date: Date
-}
+import {fuelListEntry} from '../../../utils/fuelApi/fuelDbStorage';
 
 export default function PG_FuelList({list}: {list: fuelListEntry[]}): JSX.Element {
   let lastDate:Date | null = null;
@@ -27,7 +21,7 @@ export default function PG_FuelList({list}: {list: fuelListEntry[]}): JSX.Elemen
         {d}
         <UI_Card>
           <UI_Text size={FONT_SIZE.XS} color={COLOR.FONT_SECONDARY}>{new Date(element.date).toLocaleString()}</UI_Text>
-          <UI_FuelArrayView distance={element.distance} consumption={element.consumption} cost={element.cost} />
+          <UI_FuelArrayView distance={element.distance} consumption={element.consumption} cost={element.cost} station={element.station} />
         </UI_Card>
       </View>
     );

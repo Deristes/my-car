@@ -6,8 +6,9 @@ import UI_Modal from '../../ui/components/modal/Modal';
 import UI_Button from '../../ui/components/basic/Button';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {COLOR} from '../../constants/COLORS';
-import PG_FuelList, {fuelListEntry} from '../../ui/pages/fuel/FuelList';
+import PG_FuelList from '../../ui/pages/fuel/FuelList';
 import {useDb} from '../_layout';
+import {fuelListEntry, getFuelEntries} from "../../utils/fuelApi/fuelDbStorage";
 
 
 export default function fuel() {
@@ -24,17 +25,7 @@ export default function fuel() {
   }, [db]);
 
   async function loadData(limit) {
-
-    try {
-      const items: unknown = await db.executeQuery(
-        'select distance, consumption, cost, date from fuelConsumption ORDER BY date DESC LIMIT ?;',
-        [limit]
-      );
-
-      setItems(items as fuelListEntry[]);
-    } catch (e) {
-      console.warn('DATA COULD NOT BE FETCHED');
-    }
+    setItems(await getFuelEntries(db, limit));
   }
 
   return <>
