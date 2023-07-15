@@ -4,18 +4,23 @@ import UI_Text from '../basic/Text';
 import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
 import Accordion from '../basic/Accordion';
 import {useState} from 'react';
-import {toDecimals} from '../../../utils/foramt/formatNumbers';
+import {toDecimals} from '../../../utils/format/formatNumbers';
+import GasStationClass from '../../../utils/fuelApi/gasStation.class';
+import {Image} from 'expo-image';
+import UI_FuelStation from "./FuelStation";
 
 export default function UI_FuelArrayView({
   distance,
   consumption,
   cost,
-  open
+  open,
+  station
 }: {
   distance: number,
   consumption: number,
   cost: number,
-  open?: boolean
+  open?: boolean,
+  station?: GasStationClass
 }) {
   
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -55,7 +60,7 @@ export default function UI_FuelArrayView({
           <UI_Text size={FONT_SIZE.XS} center>€ / 100km</UI_Text>
         </View>
       </UI_Row>
+      {station == null ? <></> : <View style={{padding: BLOCK_SPACING.MD, paddingTop: BLOCK_SPACING.LG}}><UI_FuelStation station={station} /></View>}
     </View>
   </Accordion>;
-
 }

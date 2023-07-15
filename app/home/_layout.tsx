@@ -29,7 +29,6 @@ export default function HomeLayout() {
         <View style={{flex: 1}}>
         </View>
       </View>
-
       <ScrollView style={{backgroundColor: COLOR.BG_PAGE }}>
         <Slot />
       </ScrollView>

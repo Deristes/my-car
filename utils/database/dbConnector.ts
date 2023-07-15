@@ -29,7 +29,7 @@ export default class dbConnector {
     const dbVersion = await this.getDbVersion();
 
     for (let i = dbVersion; i < migration.length; i++) {
-      await migration[i].call(this.executeQuery);
+      await migration[i].call(this.executeQuery.bind(this));
     }
 
     await this.setDbVersion(migration.length);
@@ -37,8 +37,6 @@ export default class dbConnector {
 
   private async getDbVersion(): Promise<number> {
     // Ensure migration table exists
-    await this.executeQuery('DROP TABLE IF EXISTS \'migrations\'');
-
     await this.executeQuery('CREATE TABLE IF NOT EXISTS \'migrations\' (migration INTEGER)');
 
     // Get version if exists

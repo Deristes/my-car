@@ -6,10 +6,12 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function UI_ModalHeader({
   close,
-  title
+  title,
+  small = false
 }:{
   close: () => void,
-  title: string
+  title: string,
+  small?: boolean
 }) {
   return <View style={{
     display: 'flex',
@@ -20,18 +22,21 @@ export default function UI_ModalHeader({
     </View>
     <View style={{flex: 3}}>
       <UI_Text
-        size={FONT_SIZE.LG}
-        weight={FONT_WEIGHT.LG}
+        size={small ? FONT_SIZE.MD : FONT_SIZE.LG}
+        weight={small ? FONT_WEIGHT.MD : FONT_WEIGHT.LG}
         color={COLOR.FONT_PRIMARY}
-        padding={BLOCK_SPACING.LG}
+        padding={small ? BLOCK_SPACING.MD : BLOCK_SPACING.LG}
         center
       >
         {title}
       </UI_Text>
     </View>
     <View style={{flex: 1}}>
-      <TouchableOpacity style={{padding: BLOCK_SPACING.LG, alignItems: 'flex-end'}} onPress={close}>
-        <AntDesign name="close" size={24} color={COLOR.FONT_PRIMARY} />
+      <TouchableOpacity style={{
+        padding: small ? BLOCK_SPACING.MD : BLOCK_SPACING.LG,
+        alignItems: 'flex-end'
+      }} onPress={close}>
+        <AntDesign name="close" size={small ? 20 : 24} color={COLOR.FONT_PRIMARY} />
       </TouchableOpacity>
     </View>
   </View>;

@@ -6,7 +6,7 @@ import {BLOCK_SPACING, FONT_SIZE, FONT_WEIGHT} from '../../constants/SIZES';
 import UI_Text from '../../ui/components/basic/Text';
 import UI_Navbar from '../../ui/components/navbar/Navbar';
 
-export default function HomeLayout() {
+export default function FuelLayout() {
   return <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BG_NAVBAR }}>
     <View style={{flex: 1}}>
       <View style={{
@@ -14,7 +14,6 @@ export default function HomeLayout() {
         flexDirection: 'row'
       }}>
         <View style={{flex: 1}}>
-          <UI_Text href={'/home/'} padding={BLOCK_SPACING.LG}>back</UI_Text>
         </View>
         <View style={{flex: 1}}>
           <UI_Text
