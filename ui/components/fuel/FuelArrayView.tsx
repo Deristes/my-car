@@ -4,9 +4,10 @@ import UI_Text from '../basic/Text';
 import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
 import Accordion from '../basic/Accordion';
 import {useState} from 'react';
-import {toDecimals} from '../../../utils/foramt/formatNumbers';
-import GasStationClass from "../../../utils/fuelApi/gasStation.class";
-import {Image} from "expo-image";
+import {toDecimals} from '../../../utils/format/formatNumbers';
+import GasStationClass from '../../../utils/fuelApi/gasStation.class';
+import {Image} from 'expo-image';
+import UI_FuelStation from "./FuelStation";
 
 export default function UI_FuelArrayView({
   distance,
@@ -59,30 +60,7 @@ export default function UI_FuelArrayView({
           <UI_Text size={FONT_SIZE.XS} center>€ / 100km</UI_Text>
         </View>
       </UI_Row>
+      {station == null ? <></> : <View style={{padding: BLOCK_SPACING.MD, paddingTop: BLOCK_SPACING.LG}}><UI_FuelStation station={station} /></View>}
     </View>
-    {station == null ? <></> :
-      <View style={{
-        flexDirection: 'row',
-        gap: BLOCK_SPACING.MD,
-        padding: BLOCK_SPACING.MD,
-        paddingTop: BLOCK_SPACING.LG
-      }}>
-        <View style={{flex:1}}>
-          <Image
-            source={station.getImage()}
-            contentFit="contain"
-            transition={200}
-            style={{
-              flex: 1
-            }}
-          />
-        </View>
-        <View style={{flex:6}}>
-          <UI_Text>{station.getStreamlinedName()}</UI_Text>
-          <UI_Text size={FONT_SIZE.SM}>{station.getAdress()}</UI_Text>
-        </View>
-      </View>
-    }
   </Accordion>;
-
 }

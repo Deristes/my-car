@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {ScrollView, TouchableOpacity, View} from "react-native";
-import UI_Text from "../Text";
-import {BLOCK_SPACING} from "../../../../constants/SIZES";
-import {COLOR} from "../../../../constants/COLORS";
-import UI_SelectItem from "./SelectItem";
-import UI_CenterModal from "../../modal/CenterModal";
+import {useState} from 'react';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
+import UI_Text from '../Text';
+import {BLOCK_SPACING} from '../../../../constants/SIZES';
+import {COLOR} from '../../../../constants/COLORS';
+import UI_SelectItem from './SelectItem';
+import UI_CenterModal from '../../modal/CenterModal';
 
 export interface UI_I_SelectItem {
   value: string | number,

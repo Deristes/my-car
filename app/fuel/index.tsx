@@ -8,23 +8,23 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {COLOR} from '../../constants/COLORS';
 import PG_FuelList from '../../ui/pages/fuel/FuelList';
 import {useDb} from '../_layout';
-import {fuelListEntry, getFuelEntries} from "../../utils/fuelApi/fuelDbStorage";
+import {fuelListEntry, getFuelEntries} from '../../utils/fuelApi/fuelDbStorage';
 
 
 export default function fuel() {
   const [list, setItems] = useState<fuelListEntry[]>(null);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const db = useDb();
 
   useEffect(() => {
-    if (db == null) {
-      return;
-    }
     loadData(25).then();
   }, [db]);
 
   async function loadData(limit) {
+    if (db == null) {
+      return;
+    }
     setItems(await getFuelEntries(db, limit));
   }
 
@@ -48,7 +48,7 @@ export default function fuel() {
 
       {list ? <PG_FuelList list={list} /> : <></>}
       <TouchableOpacity onPress={() => {
-        loadData(list.length + 25);
+        loadData(list.length + 25).then();
       }} style={{
         padding: BLOCK_SPACING.MD,
         alignItems: 'center'

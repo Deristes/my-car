@@ -7,6 +7,7 @@ import UI_Text from '../basic/Text';
 import {BLOCK_SPACING, FONT_SIZE} from '../../../constants/SIZES';
 import {Image} from 'expo-image';
 import GasStationClass from '../../../utils/fuelApi/gasStation.class';
+import UI_FuelStation from "./FuelStation";
 
 
 export default function UI_NearestStation() {
@@ -38,26 +39,7 @@ export default function UI_NearestStation() {
         <View style={{flex: 1}}><UI_Text>Nächste Tankstelle:</UI_Text></View>
         <View style={{flex: 1}}><UI_Text right>{`${station.dist} km`}</UI_Text></View>
       </View>
-      <View style={{
-        flexDirection: 'row',
-        gap: BLOCK_SPACING.MD
-      }}>
-        <View style={{flex:1}}>
-          <Image
-            source={station.getImage()}
-            contentFit="contain"
-            transition={200}
-            style={{
-              flex: 1
-            }}
-          />
-        </View>
-        <View style={{flex:6}}>
-          <UI_Text>{station.getStreamlinedName()}</UI_Text>
-          <UI_Text size={FONT_SIZE.SM}>{station.getAdress()}</UI_Text>
-        </View>
-      </View>
+      <UI_FuelStation station={station} />
     </View>
-
   </UI_Card>;
 }

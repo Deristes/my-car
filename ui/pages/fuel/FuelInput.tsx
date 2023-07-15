@@ -114,7 +114,13 @@ export default function PG_FuelInput({refreshItems}: {refreshItems: () => void})
     >
       <View style={{gap: BLOCK_SPACING.MD}}>
         <UI_Card>
-          <UI_FuelArrayView distance={parseFloat(distance)} consumption={parseFloat(consumption)} cost={parseFloat(cost)} open={true} />
+          <UI_FuelArrayView
+            distance={parseFloat(distance)}
+            consumption={parseFloat(consumption)}
+            cost={parseFloat(cost)}
+            open={true}
+            station={nearestStations.find((e) => e.id === selectedStation)}
+          />
         </UI_Card>
       </View>
     </UI_ModalPagerPage>
